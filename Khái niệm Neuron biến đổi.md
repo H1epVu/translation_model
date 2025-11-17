@@ -5,20 +5,35 @@ CHƯƠNG I. MẠNG NƠ-RON
 -	Mạng neuron với mỗi nút sẽ có những dữ liệu đầu vào, biến đổi những dữ liệu đầu vào này bằng cách tính tổng các input với weight tương ứng trên các đầu vào, sau đó áp dụng một hàm biến đổi phi tuyến tính cho phép biến đổi này để tính toán trạng thái trung gian. 3 bước trên tạo thành 1 lớp và hàm biến đổi còn được gọi là activation funtion. Các output của layer này sẽ là input của layer phía sau.
 -	Thông qua việc lặp lại các bước trên, neural-network học thông qua nhiều layer và các nút phi tuyến tính rồi sau đó kết hợp lại ở layer cuối cùng để cho ra 1 dự đoán.
 -	Neural-network học bằng cách tạo ra các tín hiệu lỗi đo lường sự khác biệt giữa các dự đoán của mạng và giá trị mong muốn, sau đó sử dụng tín hiệu lỗi này để cập nhật lại weight và bias trong activation function để việc dự đoán sau đó chính xác hơn.
+
+<p align="center">
  <img width="355" height="321" alt="image" src="https://github.com/user-attachments/assets/ac482abc-9caa-4968-88be-20daec82df0d" />
+</p>
+
 Hình 1.1. Mạng neuron 1 lớp ẩn
+
+<p align="center">
  <img width="686" height="344" alt="image" src="https://github.com/user-attachments/assets/6435a9c4-2a0f-47c3-9b72-56e1f656aef8" />
+</p>
 
 1.3. Thành phần
 1.3.1. Activation function
 -	Activation function là 1 thành phần rất quan trọng của neural-network. Nó quyết định khi nào thì 1 neuron được kích hoạt hoặc không. Liệu thông tin mà neuron nhận được có liên quan đến thông tin được đưa ra hay nên bỏ qua.
+
+<p align="center">
  <img width="595" height="103" alt="image" src="https://github.com/user-attachments/assets/6271a393-c563-4701-9ea8-37d5e345a225" />
--	Activation function là 1 phép biến đổi phi tuyến tính mà chúng ta thực hiện đối với tín hiệu đầu vào. Đầu ra được chuyển đổi này sẽ được sử dụng làm đầu vào của neuron ở layer tiếp theo.
+</p>
+
+ -	Activation function là 1 phép biến đổi phi tuyến tính mà chúng ta thực hiện đối với tín hiệu đầu vào. Đầu ra được chuyển đổi này sẽ được sử dụng làm đầu vào của neuron ở layer tiếp theo.
 -	Nếu không có activation function thì weight và bias chỉ đơn giản như 1 hàm biến đổi tuyến tính. Giải 1 hàm tuyến tính sẽ đơn giản hơn nhiều nhưng sẽ khó có thể mô hình hóa và giải được những vấn đề phức tạp. Một mạng neuron nếu không có activation function thì cơ bản chỉ là 1 model hồi quy tuyến tính. Activation function thực hiện việc biến đổi phi tuyến tính với đầu vào làm việc học hỏi và thực hiện những nhiệm vụ phức tạp hơn như dịch ngôn ngữ hoặc phân loại ảnh là khả thi.
 -	Activation function hỗ trợ back-propagation (tuyên truyền ngược) với việc cung cấp các lỗi để có thể cập nhật lại các weight và bias, việc này giúp mô hình có khả năng tự hoàn thiện.
 1.3.1.1. Một số hàm activation phổ biến
+
+<p align="center">
  <img width="491" height="409" alt="image" src="https://github.com/user-attachments/assets/b4a5b45b-86df-4144-8eee-3761f9cd0a75" />
-Hính 1.3. Các hàm active
+</p>
+
+ Hình 1.3. Các hàm active
 1.3.1.2. Lựa chọn
 -	Các hàm sigmoid và sự kết hợp của chúng thường phù hợp với những bài toán phân loại
 -	Sigmoid và tanh đôi khi nên tránh sử dụng đồng thời vì có thể khiến gradient biến mất
@@ -34,13 +49,25 @@ Hính 1.3. Các hàm active
 -	Chúng ta sẽ chuyển ảnh ban đầu về ma trận có giá trị 0,1.
 -	Từ ma trận ảnh ban đầu đã có và ma trận bộ lọc (kernel) chúng ta tích chập hai ma trận thành một ma trận đặc điểm của ảnh (feature map).
 -	Ma trận đầu vào có kích thước là H1 x W1 x D (H = height, W = width, D = dimension) và bộ lọc (kernel) là H2 x W2 x D thì ma trận đặc điểm ảnh sẽ là:
- <img width="397" height="160" alt="image" src="https://github.com/user-attachments/assets/01be6310-0db0-4b0a-9deb-927a808cb4eb" />
--	Ví dụ ma trận đặc điểm ảnh tổng quát
+
+<p align="center">
+<img width="397" height="160" alt="image" src="https://github.com/user-attachments/assets/01be6310-0db0-4b0a-9deb-927a808cb4eb" />
+</p>
+
+ -	Ví dụ ma trận đặc điểm ảnh tổng quát
+
+<p align="center">
  <img width="438" height="313" alt="image" src="https://github.com/user-attachments/assets/4a52a793-0ba3-4ce8-b24d-d638841e52e9" />
-Hình 1.5. Ma trận đặc điểm ảnh
+</p>
+
+ Hình 1.5. Ma trận đặc điểm ảnh
 -	Ví dụ cụ thể về tính ma trận đặc điểm ảnh
+
+<p align="center">
  <img width="712" height="219" alt="image" src="https://github.com/user-attachments/assets/a3e87dd4-af61-4eca-ab8e-3a661e93417c" />
-Hình 1.6. Tính ma trận điểm ảnh
+</p>
+
+ Hình 1.6. Tính ma trận điểm ảnh
 1.4. Phân loại
 1.4.1. Mạng nơ-ron truyền thẳng
 -	Mạng nơ-ron truyền thẳng xử lý dữ liệu theo một chiều, từ nút đầu vào đến nút đầu ra. Mỗi nút trong một lớp được kết nối với tất cả các nút trong lớp tiếp theo. Mạng truyền thẳng sử dụng một quy trình phản hồi để cải thiện dự đoán theo thời gian.
@@ -60,7 +87,11 @@ CHƯƠNG 2. MẠNG NEURON HỒI QUY (RNN)
 -	RNN là một hệ thống phần mềm gồm nhiều thành phần được kết nối với nhau theo cách con người thực hiện chuyển đổi dữ liệu tuần tự, chẳng hạn như dịch văn bản từ ngôn ngữ này sang ngôn ngữ khác. Phần lớn RNN đang được thay thế bằng trí tuệ nhân tạo (AI) dựa trên công cụ biến đổi và các mô hình ngôn ngữ lớn (LLM), hiệu quả hơn nhiều trong việc xử lý dữ liệu tuần tự.
 
 2.2. Cách hoạt động
+
+<p align="center">
  <img width="686" height="352" alt="image" src="https://github.com/user-attachments/assets/82a28a85-2e51-4126-99b6-cb3fd2ffe1bc" />
+</p>
+ 
 Hình 2.1. Sơ đồ hoạt động
 RNN được tạo thành từ các nơ-ron: các nút xử lý dữ liệu kết hợp cùng nhau để thực hiện các tác vụ phức tạp. Các nơ-ron được tổ chức dưới dạng lớp đầu vào, đầu ra và ẩn. Lớp đầu vào nhận thông tin để xử lý và lớp đầu ra cung cấp kết quả. Quá trình xử lý dữ liệu, phân tích và dự đoán diễn ra trong lớp ẩn.
 2.2.1. Lớp ẩn
@@ -109,7 +140,9 @@ CHƯƠNG 3. MẠNG NƠ RON BIẾN ĐỔI
 
 3.2. Cấu trúc
 
+<p align="center">
  <img width="497" height="685" alt="image" src="https://github.com/user-attachments/assets/9857c0d5-654c-4faa-9c27-d7d08886fe20" />
+</p>
  
 Hình 3.1. Cấu trúc mô hình
 
@@ -129,35 +162,47 @@ Hình 3.1. Cấu trúc mô hình
 3.3.1. Input Embending
 -	Máy tính không hiểu câu chữ mà chỉ đọc được số, vector, ma trận; vì vậy ta phải biểu diễn câu chữ dưới dạng vector, gọi là input embedding. Điều này đảm bảo các từ gần nghĩa có vector gần giống nhau. Hiện đã có khá nhiều pretrained word embeddings như GloVe, Fasttext, gensim Word2Vec,... cho bạn lựa chọn.
 
+<p align="center">
  <img width="667" height="281" alt="image" src="https://github.com/user-attachments/assets/973e23be-91ec-4239-ac2d-9b6910f49756" />
+</p>
  
 Hình 3.2. Biểu diễn từ dưới dạng vector
 3.3.2. Positional Encoding
 -	Word embeddings phần nào cho giúp ta biểu diễn ngữ nghĩa của một từ, tuy nhiên cùng một từ ở vị trí khác nhau của câu lại mang ý nghĩa khác nhau. Đó là lý do Transformers có thêm một phần Positional Encoding để inject thêm thông tin về vị trí của một từ.
 
+<p align="center">
 <img width="527" height="156" alt="image" src="https://github.com/user-attachments/assets/3b6df96c-c518-44bc-8949-87d060e38aa2" />
+</p>
 
 Hình 3.2. Công thức tính cho các vị trí chẵn/lẽ
 Trong đó pos là vị trí của từ trong câu, PE là giá trị phần tử thứ i trong embenddings có độ dài dmodel. Sau đó ta cộng PE Vector và Embendding vector
- 
+
+<p align="center">
  <img width="663" height="296" alt="image" src="https://github.com/user-attachments/assets/5f640f1c-f5f2-4b55-9c1f-a36b7af7ff84" />
+</p>
  
 Hình 3.3. Vector Embbedding
 3.3.3. Self-Attention
 -	Self-Attention là cơ chế giúp Transformers "hiểu" được sự liên quan giữa các từ trong một câu.
 -	Ví dụ như từ "kicked" trong câu "I kicked the ball" (tôi đã đá quả bóng) liên quan như thế nào đến các từ khác? Rõ ràng nó liên quan mật thiết đến từ "I" (chủ ngữ), "kicked" là chính nó lên sẽ luôn "liên quan mạnh" và "ball" (vị ngữ). Ngoài ra từ "the" là giới từ nên sự liên kết với từ "kicked" gần như không có. Vậy Self-Attention trích xuất những sự "liên quan" này như thế nào?
 
+<p align="center">
 <img width="607" height="396" alt="image" src="https://github.com/user-attachments/assets/4d8eeaf6-1e05-4670-bae4-5d08a57f614b" />
+</p>
 
 Hình 3.4. Self-Attention với một từ trong câu
 -	Đầu vào của các module Multi-head Attention (bản chất là Self-Attention) có 3 mũi tên, đó chính là 3 vectors Querys (Q), Keys (K) và Values (V). Từ 3 vectors này, ta sẽ tính vector attention Z cho một từ theo công thức sau:
 
+<p align="center">
  <img width="689" height="124" alt="image" src="https://github.com/user-attachments/assets/13706796-0487-41e2-a1e4-3faa4100faa7" />
- 
+</p>
+
 Hình 3.5. Công thức tính Softmax
 -	Đầu tiên, để có được 3 vectors Q, K, V, input embeddings được nhân với 3 ma trận trọng số tương ứng (được tune trong quá trình huấn luyện) WQ, WK, WV.
 
+<p align="center">
 <img width="671" height="409" alt="image" src="https://github.com/user-attachments/assets/514388cd-b28f-4681-beaa-5e64cadc7bbe" />
+</p>
 
 Hình 3.6. Vector Q, K, V
 -	Lúc này, vector K đóng vai trò như một khóa đại diện cho từ, và Q sẽ truy vấn đến các vector K của các từ trong câu bằng cách nhân chập với những vector này. Mục đích của phép nhân chập để tính toán độ liên quan giữa các từ với nhau. Theo đó, 2 từ liên quan đến nhau sẽ có "Score" lớn và ngược lại.
@@ -165,40 +210,52 @@ Hình 3.6. Vector Q, K, V
 -	Bước thứ 3 là softmax các kết quả vừa rồi để đạt được một phân bố xác suất trên các từ.
 -	Bước thứ 4 ta nhân phân bố xác suất đó với vector V để loại bỏ những từ không cần thiết (xác suất nhỏ) và giữ lại những từ quan trọng (xác suất lớn).
 -	Ở bước cuối cùng, các vectors V (đã được nhân với softmax output) cộng lại với nhau, tạo ra vector attention Z cho một từ. Lặp lại quá trình trên cho tất cả các từ ta được ma trận attention cho 1 câu.
--	
+
+<p align="center">
  <img width="637" height="649" alt="image" src="https://github.com/user-attachments/assets/c845648e-3715-4813-be0c-19015a9db150" />
- 
+</p>
+
 Hình 3.7. Vector Z
  
 3.3.4. Multi-Head Attention
 -	Vấn đề của Self-attention là attention của một từ sẽ luôn "chú ý" vào chính nó.
 
+<p align="center">
  <img width="586" height="300" alt="image" src="https://github.com/user-attachments/assets/675e3552-a0cc-4ee9-909b-e01362af9eb7" />
+</p>
  
 Hình 3..8 Self-Attetion đối với mỗi từ.
 -	Tác giả đã giới thiệu một phiên bản nâng cấp hơn của Self-attention là Multi-head attention. Ý tưởng rất đơn giản là thay vì sử dụng 1 Self-attention (1 head) thì ta sử dụng nhiều Attention khác nhau (multi-head).
 -	Vì mỗi "head" sẽ cho ra một ma trận attention riêng nên ta phải concat các ma trận này và nhân với ma trận trọng số WO để ra một ma trận attention duy nhất (weighted sum). Và tất nhiên, ma trận trọng số này cũng được tune trong khi training.
 
+<p align="center">
  <img width="784" height="421" alt="image" src="https://github.com/user-attachments/assets/f5bb448e-053f-4eaa-9023-554d0993beb5" />
+</p>
  
 Hình 3.9. Chuyển đổi về cùng một kích cỡ.
 3.3.5. Residuals
 -	Mỗi sub-layer đều là một residual block. Cũng giống như residual blocks trong Computer Vision, skip connections trong Transformers cho phép thông tin đi qua sub-layer trực tiếp. Thông tin này (x) được cộng với attention (z) của nó và thực hiện Layer Normalization.
 
+<p align="center">
  <img width="486" height="464" alt="image" src="https://github.com/user-attachments/assets/d2f38573-94ff-4204-87cb-84355bc330cf" />
+</p>
  
 Hình 3.10 Minh họa hướng di chuyển của Residuals
 3.3.6. Feed Forward
 -	Sau khi được Normalize, các vectors  z được đưa qua mạng fully connected trước khi đẩy qua Decoder. Vì các vectors này không phụ thuộc vào nhau nên ta có thể tận dụng được tính toán song song cho cả câu.
 
+<p align="center">
 <img width="736" height="234" alt="image" src="https://github.com/user-attachments/assets/b63c2238-db82-4d9f-810c-d408c362d277" />
+</p>
 
 Hình 3.11. Minh họa Feed Forward
 3.4. Decoder
 3.4.1. Masked Multi-Head Attetion
 -	Giả sử bạn muốn Transformers thực hiện bài toán English-France translation, thì công việc của Decoder là giải mã thông tin từ Encoder và sinh ra từng từ tiếng Pháp dựa trên NHỮNG TỪ TRƯỚC ĐÓ. Vậy nên, nếu ta sử dụng Multi-head attention trên cả câu như ở Encoder, Decoder sẽ "thấy" luôn từ tiếp theo mà nó cần dịch. Để ngăn điều đó, khi Decoder dịch đến từ thứ i, phần sau của câu tiếng Pháp sẽ bị che lại (masked) và Decoder chỉ được phép "nhìn" thấy phần nó đã dịch trước đó.
 
+<p align="center">
 <img width="717" height="325" alt="image" src="https://github.com/user-attachments/assets/a4effbe1-6209-4f39-bb93-95c8f1176184" />
+</p>
 
 Hình 3.12. Mask-Attention trong giai đoạn giải mã
 
