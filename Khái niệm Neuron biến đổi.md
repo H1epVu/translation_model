@@ -108,7 +108,9 @@ CHƯƠNG 3. MẠNG NƠ RON BIẾN ĐỔI
 -	Transformer là một kiến trúc mạng nơ-ron nhân tạo (AI) mang tính đột phá được giới thiệu vào năm 2017, mở ra một kỷ nguyên mới trong lĩnh vực xử lý ngôn ngữ tự nhiên (NLP). Khác với các mô hình truyền thống như mạng nơ-ron tuần hoàn (RNN) hay mạng nơ-ron tích chập (CNN), Transformer sử dụng cơ chế chú ý (attention) tiên tiến, giúp mô hình "hiểu" được mối quan hệ giữa các từ trong một câu một cách sâu sắc và chính xác hơn.
 
 3.2. Cấu trúc
+
  <img width="497" height="685" alt="image" src="https://github.com/user-attachments/assets/9857c0d5-654c-4faa-9c27-d7d08886fe20" />
+ 
 Hình 3.1. Cấu trúc mô hình
 
 3.2.1. Bộ mã hóa (Encoder)
@@ -126,54 +128,78 @@ Hình 3.1. Cấu trúc mô hình
 3.3. Encoder
 3.3.1. Input Embending
 -	Máy tính không hiểu câu chữ mà chỉ đọc được số, vector, ma trận; vì vậy ta phải biểu diễn câu chữ dưới dạng vector, gọi là input embedding. Điều này đảm bảo các từ gần nghĩa có vector gần giống nhau. Hiện đã có khá nhiều pretrained word embeddings như GloVe, Fasttext, gensim Word2Vec,... cho bạn lựa chọn.
+
  <img width="667" height="281" alt="image" src="https://github.com/user-attachments/assets/973e23be-91ec-4239-ac2d-9b6910f49756" />
+ 
 Hình 3.2. Biểu diễn từ dưới dạng vector
 3.3.2. Positional Encoding
 -	Word embeddings phần nào cho giúp ta biểu diễn ngữ nghĩa của một từ, tuy nhiên cùng một từ ở vị trí khác nhau của câu lại mang ý nghĩa khác nhau. Đó là lý do Transformers có thêm một phần Positional Encoding để inject thêm thông tin về vị trí của một từ.
- <img width="527" height="156" alt="image" src="https://github.com/user-attachments/assets/3b6df96c-c518-44bc-8949-87d060e38aa2" />
+
+<img width="527" height="156" alt="image" src="https://github.com/user-attachments/assets/3b6df96c-c518-44bc-8949-87d060e38aa2" />
+
 Hình 3.2. Công thức tính cho các vị trí chẵn/lẽ
 Trong đó pos là vị trí của từ trong câu, PE là giá trị phần tử thứ i trong embenddings có độ dài dmodel. Sau đó ta cộng PE Vector và Embendding vector
+ 
  <img width="663" height="296" alt="image" src="https://github.com/user-attachments/assets/5f640f1c-f5f2-4b55-9c1f-a36b7af7ff84" />
+ 
 Hình 3.3. Vector Embbedding
 3.3.3. Self-Attention
 -	Self-Attention là cơ chế giúp Transformers "hiểu" được sự liên quan giữa các từ trong một câu.
 -	Ví dụ như từ "kicked" trong câu "I kicked the ball" (tôi đã đá quả bóng) liên quan như thế nào đến các từ khác? Rõ ràng nó liên quan mật thiết đến từ "I" (chủ ngữ), "kicked" là chính nó lên sẽ luôn "liên quan mạnh" và "ball" (vị ngữ). Ngoài ra từ "the" là giới từ nên sự liên kết với từ "kicked" gần như không có. Vậy Self-Attention trích xuất những sự "liên quan" này như thế nào?
- <img width="607" height="396" alt="image" src="https://github.com/user-attachments/assets/4d8eeaf6-1e05-4670-bae4-5d08a57f614b" />
+
+<img width="607" height="396" alt="image" src="https://github.com/user-attachments/assets/4d8eeaf6-1e05-4670-bae4-5d08a57f614b" />
+
 Hình 3.4. Self-Attention với một từ trong câu
 -	Đầu vào của các module Multi-head Attention (bản chất là Self-Attention) có 3 mũi tên, đó chính là 3 vectors Querys (Q), Keys (K) và Values (V). Từ 3 vectors này, ta sẽ tính vector attention Z cho một từ theo công thức sau:
+
  <img width="689" height="124" alt="image" src="https://github.com/user-attachments/assets/13706796-0487-41e2-a1e4-3faa4100faa7" />
+ 
 Hình 3.5. Công thức tính Softmax
 -	Đầu tiên, để có được 3 vectors Q, K, V, input embeddings được nhân với 3 ma trận trọng số tương ứng (được tune trong quá trình huấn luyện) WQ, WK, WV.
- <img width="671" height="409" alt="image" src="https://github.com/user-attachments/assets/514388cd-b28f-4681-beaa-5e64cadc7bbe" />
+
+<img width="671" height="409" alt="image" src="https://github.com/user-attachments/assets/514388cd-b28f-4681-beaa-5e64cadc7bbe" />
+
 Hình 3.6. Vector Q, K, V
 -	Lúc này, vector K đóng vai trò như một khóa đại diện cho từ, và Q sẽ truy vấn đến các vector K của các từ trong câu bằng cách nhân chập với những vector này. Mục đích của phép nhân chập để tính toán độ liên quan giữa các từ với nhau. Theo đó, 2 từ liên quan đến nhau sẽ có "Score" lớn và ngược lại.
 -	Bước thứ 2 là bước "Scale", đơn giản chỉ là chia "Score" cho căn bậc hai của số chiều của Q/K/V (trong hình chia 8 vì Q/K/V là 64-D vectors). Việc này giúp cho giá trị "Score" không phụ thuộc vào độ dài của vector Q/K/V
 -	Bước thứ 3 là softmax các kết quả vừa rồi để đạt được một phân bố xác suất trên các từ.
 -	Bước thứ 4 ta nhân phân bố xác suất đó với vector V để loại bỏ những từ không cần thiết (xác suất nhỏ) và giữ lại những từ quan trọng (xác suất lớn).
 -	Ở bước cuối cùng, các vectors V (đã được nhân với softmax output) cộng lại với nhau, tạo ra vector attention Z cho một từ. Lặp lại quá trình trên cho tất cả các từ ta được ma trận attention cho 1 câu.
+-	
  <img width="637" height="649" alt="image" src="https://github.com/user-attachments/assets/c845648e-3715-4813-be0c-19015a9db150" />
+ 
 Hình 3.7. Vector Z
  
 3.3.4. Multi-Head Attention
 -	Vấn đề của Self-attention là attention của một từ sẽ luôn "chú ý" vào chính nó.
+
  <img width="586" height="300" alt="image" src="https://github.com/user-attachments/assets/675e3552-a0cc-4ee9-909b-e01362af9eb7" />
+ 
 Hình 3..8 Self-Attetion đối với mỗi từ.
 -	Tác giả đã giới thiệu một phiên bản nâng cấp hơn của Self-attention là Multi-head attention. Ý tưởng rất đơn giản là thay vì sử dụng 1 Self-attention (1 head) thì ta sử dụng nhiều Attention khác nhau (multi-head).
 -	Vì mỗi "head" sẽ cho ra một ma trận attention riêng nên ta phải concat các ma trận này và nhân với ma trận trọng số WO để ra một ma trận attention duy nhất (weighted sum). Và tất nhiên, ma trận trọng số này cũng được tune trong khi training.
+
  <img width="784" height="421" alt="image" src="https://github.com/user-attachments/assets/f5bb448e-053f-4eaa-9023-554d0993beb5" />
+ 
 Hình 3.9. Chuyển đổi về cùng một kích cỡ.
 3.3.5. Residuals
 -	Mỗi sub-layer đều là một residual block. Cũng giống như residual blocks trong Computer Vision, skip connections trong Transformers cho phép thông tin đi qua sub-layer trực tiếp. Thông tin này (x) được cộng với attention (z) của nó và thực hiện Layer Normalization.
+
  <img width="486" height="464" alt="image" src="https://github.com/user-attachments/assets/d2f38573-94ff-4204-87cb-84355bc330cf" />
+ 
 Hình 3.10 Minh họa hướng di chuyển của Residuals
 3.3.6. Feed Forward
 -	Sau khi được Normalize, các vectors  z được đưa qua mạng fully connected trước khi đẩy qua Decoder. Vì các vectors này không phụ thuộc vào nhau nên ta có thể tận dụng được tính toán song song cho cả câu.
- <img width="736" height="234" alt="image" src="https://github.com/user-attachments/assets/b63c2238-db82-4d9f-810c-d408c362d277" />
+
+<img width="736" height="234" alt="image" src="https://github.com/user-attachments/assets/b63c2238-db82-4d9f-810c-d408c362d277" />
+
 Hình 3.11. Minh họa Feed Forward
 3.4. Decoder
 3.4.1. Masked Multi-Head Attetion
 -	Giả sử bạn muốn Transformers thực hiện bài toán English-France translation, thì công việc của Decoder là giải mã thông tin từ Encoder và sinh ra từng từ tiếng Pháp dựa trên NHỮNG TỪ TRƯỚC ĐÓ. Vậy nên, nếu ta sử dụng Multi-head attention trên cả câu như ở Encoder, Decoder sẽ "thấy" luôn từ tiếp theo mà nó cần dịch. Để ngăn điều đó, khi Decoder dịch đến từ thứ i, phần sau của câu tiếng Pháp sẽ bị che lại (masked) và Decoder chỉ được phép "nhìn" thấy phần nó đã dịch trước đó.
- <img width="717" height="325" alt="image" src="https://github.com/user-attachments/assets/a4effbe1-6209-4f39-bb93-95c8f1176184" />
+
+<img width="717" height="325" alt="image" src="https://github.com/user-attachments/assets/a4effbe1-6209-4f39-bb93-95c8f1176184" />
+
 Hình 3.12. Mask-Attention trong giai đoạn giải mã
 
 3.4.2. Quá trình decoder
